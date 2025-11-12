@@ -1,0 +1,44 @@
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "ubuntu/jammy64"
+    config.vm.hostname = "spnet-dev"
+
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "private_network", ip: "192.168.56.125"
+
+    config.vm.synced_folder "../", "/var/www/spnet", :owner => "www-data", :group => "vagrant"
+
+    config.vm.provider "virtualbox" do |v|
+        v.name = "spnet-dev"
+        v.memory = 2048
+        v.cpus = 2
+
+        v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    end
+
+    # Provision scripts
+    config.vm.provision "shell", path: "./provision-scripts/upgrade.sh", privileged: true
+    config.vm.provision "shell", path: "./provision-scripts/apache.sh", privileged: false
+
+    config.vm.provision "shell", path: "./provision-scripts/mariadb.sh", privileged: false
+
+    config.vm.provision "shell", path: "./provision-scripts/php.sh", privileged: false
+    config.vm.provision "shell", path: "./provision-scripts/phpunit.sh", privileged: false
+
+    config.vm.provision "shell", path: "./provision-scripts/swapfile.sh", privileged: false
+    config.vm.provision "shell", path: "./provision-scripts/composer.sh", privileged: false
+
+    config.vm.provision "shell", path: "./provision-scripts/redis.sh", privileged: false
+    config.vm.provision "shell", path: "./provision-scripts/memcached.sh", privileged: true
+
+    config.vm.provision "shell", path: "./provision-scripts/node-nvm-npm.sh", privileged: false
+
+    config.vm.provision "shell", path: "./provision-scripts/mailpit.sh", privileged: true
+
+    config.vm.provision "shell", path: "./provision-scripts/enable-application.sh", privileged: true
+    config.vm.provision "shell", path: "./provision-scripts/clean-up.sh", privileged: false
+    config.vm.provision "shell", path: "./provision-scripts/start-application.sh", privileged: true
+    config.vm.provision "shell", path: "./provision-scripts/finish.sh", privileged: true
+
+end
