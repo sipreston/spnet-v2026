@@ -1,0 +1,6 @@
+plugin:
+    name: 'simonpreston.article::lang.plugin.name'
+    description: 'simonpreston.article::lang.plugin.description'
+    author: 'Simon Preston'
+    icon: oc-icon-adjust
+    homepage: ''
