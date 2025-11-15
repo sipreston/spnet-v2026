@@ -23,6 +23,7 @@ export default defineConfig({
                     'assets/src/**/*.css',
                     'assets/src/**/*.js',
                     'assets/src/**/*.jsx',
+                    'assets/src/images/*.*'
                 ]
             },
         }),

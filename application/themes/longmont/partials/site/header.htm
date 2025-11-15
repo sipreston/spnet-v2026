@@ -1,20 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% placeholder page_title default %}{{ this.page.title }}{% endplaceholder %}</title>
-        {% partial "meta/styles" %}
-        {% partial "meta/seo" %}
-        <meta name="generator" content="Winter CMS">
-    </head>
-    {% set pageId = this.page.id %}
-    {% set pageTitle = this.page.title %}
-    {% if pageId is empty %}
-        {% set pageId = page.id %}
-    {% endif %}
-    {% if pageTitle is empty %}
-        {% set pageTitle = page.title %}
-    {% endif %}
-    <body class="page-{{ pageId }} layout-{{ this.layout.id }}">
+<div class="site-branding">
+    <h1 class="site-title">
+        <a href="/" rel="home">
+            {{ 'Simonpreston.net' }}
+        </a>
+    </h1>
+    <img class="site-header-image" src="{{ 'assets/images/header-image.jpg' }}" alt="masthead">
+</div>
+<div class="main-navigation-wrapper">
+    <div id="search" class="main-navigation-search">
+        <form role="search" method="get" class="search-form" action="/search">
+            <input type="search" class="search-field" placeholder="Search …" value="" name="s">
+            <input type="submit" class="search-submit" value="O">
+        </form>
+    </div>
+
+    <nav id="site-navigation" class="main-navigation">
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Primary Menu</button>
+        <div class="menu-main-container">
+            <ul id="primary-menu" class="menu">
+                <li id="menu-item-11" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11"><a href="/about">About</a></li>
+                <li id="menu-item-142" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-142"><a href="/amiga">Amiga</a></li>
+                <li id="menu-item-143" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-143"><a href="/raspberry-pi">Raspberry Pi</a></li>
+                <li id="menu-item-391" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-391"><a href="/tutorials">Tutorials</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

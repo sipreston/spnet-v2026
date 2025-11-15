@@ -1,8 +1,13 @@
 {
-    "name": "theme-longmont",
+    "name": "longmont",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
     "devDependencies": {
-        "tailwindcss": "^3.4.0",
         "@tailwindcss/forms": "^0.5.3",
-        "@tailwindcss/typography": "^0.5.2"
+        "@tailwindcss/typography": "^0.5.2",
+        "sass": "^1.94.0",
+        "tailwindcss": "^3.4.0"
     }
 }

@@ -1,8 +1,55 @@
 description = "Default layout"
-default = true
+
+[staticPage]
+useContent = 1
+default = 0
 ==
-{% partial "site/header" %}
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <meta charset="utf-8">
+        <title>Winter CMS - {{ this.page.title }} | Simon Preston</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="Winter CMS">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="generator" content="Winter CMS">
+        <link rel="icon" type="image/png" href="{{ 'assets/images/winter.png'|theme }}">
+        <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/dist/theme-longmont.css'|theme }}" rel="stylesheet">
+        {% styles %}
+        {% partial 'site/head/tracking' %}
+    </head>
+    {% set pageId = this.page.id %}
+    {% set pageTitle = this.page.title %}
+    {% if pageId is empty %}
+    {% set pageId = page.id %}
+    {% endif %}
+    {% if pageTitle is empty %}
+    {% set pageTitle = page.title %}
+    {% endif %}
+    <body class="page-{{ pageId }} layout-{{ this.layout.id }}">
+        <!-- Header -->
+        <header id="layout-header" class="site-header">
+            {% partial 'site/header' %}
+        </header>
 
-    {% page %}
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
 
-{% partial "site/footer" %}
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial 'site/footer' %}
+        </footer>
+
+        <!-- Scripts -->
+        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+        {% snowboard all %}
+        {% scripts %}
+    </body>
+
+</html>
