@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: id
+        type: text
+    slug:
+        label: slug
+        type: text
+    author_id:
+        label: author_id
+        type: text
+    cover_image:
+        label: cover_image
+        type: text
+    content:
+        label: content
+        type: text
+    excerpt:
+        label: excerpt
+        type: text
+    published:
+        label: published
+        type: text
+    published_at:
+        label: published_at
+        type: datetime
+    deleted_at:
+        label: deleted_at
+        type: datetime
+    metadata:
+        label: metadata
+        type: text

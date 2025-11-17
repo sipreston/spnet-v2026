@@ -1,6 +1,6 @@
 <?php return [
     'plugin' => [
-        'name' => 'Articles',
+        'name' => 'Content',
         'description' => ''
     ]
 ];

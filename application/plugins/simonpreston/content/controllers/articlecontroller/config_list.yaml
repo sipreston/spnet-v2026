@@ -1,0 +1,12 @@
+list: $/simonpreston/content/models/article/columns.yaml
+modelClass: SimonPreston\Content\Models\Article
+title: ArticleController
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'simonpreston/content/articlecontroller/update/:id'

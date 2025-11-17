@@ -1,0 +1,4 @@
+title: ArticleController
+modelClass: SimonPreston\Content\Models\Article
+toolbar:
+    buttons: reorder_toolbar

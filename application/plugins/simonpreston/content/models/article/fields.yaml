@@ -1,0 +1,47 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        required: 1
+        type: text
+    slug:
+        label: Slug
+        span: auto
+        preset:
+            field: title
+            type: slug
+        type: text
+    published_at:
+        label: 'Publish At'
+        span: auto
+        mode: datetime
+        type: datepicker
+    is_published:
+        label: Published
+        span: auto
+        type: switch
+        comment: 'Publish or Unpublish'
+    cover_image:
+        label: 'Cover Image'
+        span: auto
+        mode: file
+        type: mediafinder
+    author_id:
+        label: Author
+        options:
+            1: 'Simon Preston'
+        showSearch: true
+        span: auto
+        default: '1'
+        type: dropdown
+    excerpt:
+        label: Excerpt
+        size: small
+        span: full
+        type: textarea
+        comment: 'Text to use for previews'
+    content:
+        label: Content
+        size: ''
+        span: full
+        type: richeditor

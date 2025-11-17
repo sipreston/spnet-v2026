@@ -1,0 +1,10 @@
+name: ArticleController
+form: $/simonpreston/content/models/article/fields.yaml
+modelClass: SimonPreston\Content\Models\Article
+defaultRedirect: simonpreston/content/articlecontroller
+create:
+    redirect: 'simonpreston/content/articlecontroller/update/:id'
+    redirectClose: simonpreston/content/articlecontroller
+update:
+    redirect: simonpreston/content/articlecontroller
+    redirectClose: simonpreston/content/articlecontroller

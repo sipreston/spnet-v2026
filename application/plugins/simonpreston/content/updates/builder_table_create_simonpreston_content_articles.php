@@ -13,6 +13,7 @@ class BuilderTableCreateSimonprestonContentArticles extends Migration
             $table->id('id');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->string('title', 256);
             $table->text('slug');
             $table->bigInteger('author_id')->unsigned();
             $table->string('cover_image');
@@ -20,8 +21,9 @@ class BuilderTableCreateSimonprestonContentArticles extends Migration
             $table->text('excerpt')->nullable();
             $table->bigInteger('view_count')->nullable()->unsigned()->default(0);
             $table->boolean('is_hidden')->nullable()->default(false);
-            $table->boolean('published')->default(false);
+            $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->text('metadata')->nullable();
         });
 
@@ -32,15 +34,16 @@ class BuilderTableCreateSimonprestonContentArticles extends Migration
             $table->string('name', 64);
             $table->string('slug', 64);
             $table->boolean('is_hidden')->default(false);
+            $table->timestamp('deleted_at')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_parent')->default(false);
             $table->foreignId('parent_id')->nullable()->references('id')->on('simonpreston_content_categories')->onDelete('set null')->onUpdate('cascade');
         });
 
-        Schema::creatr('simonpreston_content_article_category', function($table) {
+        Schema::create('simonpreston_content_article_category', function($table) {
             $table->engine = 'InnoDB';
-            $table->foreignId('article_id')->references('id')->on('simonpreston_article_articles')->onDelete('cascade');
-            $table->foreignId('category_id')->references('id')->on('simonpreston_article_categories')->onDelete('cascade');
+            $table->foreignId('article_id')->references('id')->on('simonpreston_content_articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')->references('id')->on('simonpreston_content_categories')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

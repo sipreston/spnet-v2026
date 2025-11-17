@@ -1,0 +1,11 @@
+plugin:
+    name: 'simonpreston.content::lang.plugin.name'
+    description: 'simonpreston.content::lang.plugin.description'
+    author: 'Simon Preston'
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Articles
+        url: simonpreston/content/articlecontroller
+        icon: icon-file-text-o

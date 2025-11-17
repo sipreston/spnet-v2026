@@ -1,0 +1,5 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table simonpreston_content_articles'
+    - builder_table_create_simonpreston_content_articles.php
