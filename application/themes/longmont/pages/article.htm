@@ -1,24 +1,45 @@
+url = "/article"
+layout = "default"
+==
+
+<?php
+
+use SimonPreston\Content\Models\Article;
+
+function onStart() {
+    $this['article'] = Article::where('slug', '=', 'test')->first();
+}
+
+?>
+
+==
+
 <div class="entry-header">
     <div class="entry-banner">
-        <img class="entry-banner__image" src="{{ 'assets/images/pi3banner.jpg' }}">
+        <img class="entry-banner__image" src="{{ '/storage/app/media/'~article.cover_image }}">
         <div class="entry-title-wrapper">
-            <h1 class="entry-title">{{ 'Article title' }}</h1>
+            <h1 class="entry-title">{{ article.title }}</h1>
             <div class="entry-meta">
                 <span class="posted-on">Posted on
-                    <a href="http://www.simonpreston.in/2019/03/08/so-i-bought-a-raspberry-pi-3/" rel="bookmark">
-                        <time class="entry-date published" datetime="{{ '2019-03-08T09:00:55+00:00' }}">{{ 'March 8, 2019' }}</time>
-                        <time class="updated" datetime="{{ '2019-03-08T08:35:42+00:00' }}">{{ '(Last Updated: March 8, 2019)' }}</time>
+                    <a href="{{ '/'~article.slug }}" rel="bookmark">
+                        <time class="entry-date published" datetime="{{ article.published_at }}">{{ article.published_at }}</time>
+                        {% if article.updated_at %}
+                        <time class="updated" datetime="{{ article.updated_at }}">{{ article.updated_at }}</time>
+                        {% endif %}
                     </a>
                 </span>
                 <span class="byline"> by
                     <span class="author vcard">
-                        <a class="url fn n" href="{{ 'http://www.simonpreston.in/author/simonpreston' }}">{{ 'simonpreston' }}</a>
+                        <a class="url fn n" href="{{ 'http://www.simonpreston.in/author/simonpreston' }}">{{ article.author_id }}</a>
                     </span>
                 </span>
+                {% if article.categories | length > 0 %}
                 <span class="cat-links">Posted in
-                    <a href="{{ 'http://www.simonpreston.in/category/raspberry-pi '}}" rel="category tag">{{ 'Raspberry Pi' }}</a>,
-                    <a href="{{ 'http://www.simonpreston.in/category/reviews' }}" rel="category tag">{{ 'Reviews' }}</a>
+                    {% for category in article.categories %}
+                    <a href="{{ '/category/'~category.slug }}" rel="category tag">{{ category.name }}</a>,
+                    {% endfor %}
                 </span>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -27,122 +48,74 @@
 <div id="content" class="site-content">
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
-            <article id="post-69" class="post-69 post type-post status-publish format-standard hentry category-raspberry-pi category-reviews">
+            <article id="post-69" class="">
                 <div class="entry-content">
-                    <p>Despite my earlier article, where I mentioned my Raspberry Pi 1 was gathering dust for years, I decided to get myself a v3 version. Simple reason being this will let me use it as a machine to muck about with, as the v1 is now doing various tasks on the network. It’s not a good idea to mucking about with something that is heavily involved in your eco-system, until you’re ready to deploy it properly. Much better to have a ‘dev’ box for testing things out on. Besides, I got one of those ‘itches’ I needed to scratch. And the last time I got one of those, I ended up buying a new graphics card. So this isn’t too bad a purchase, in the grand scheme of things.</p>
-                    <span id="more-69"></span>
-                    <p>I opted for a starter pack, which contains a Pi 3 motherboard, case, power supply, 16GB MicroSD card an SD Card adaptor to put the card in to a PC. I could have just got the motherboard and case, really. But thought I may as well get the extras, just in case. I also got a pack of heatsinks, which will help keep the chips cool. Not that I plan on overclocking the device much but every little helps. If they aren’t making a noise, and they do the job, it’s win/win.</p>
-                    <figure class="wp-block-image is-resized"><a href="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.31.43.jpg"><img src="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.31.43-768x1024.jpg" alt="" class="wp-image-156" width="576" height="768" srcset="http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.31.43-768x1024.jpg 768w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.31.43-225x300.jpg 225w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.31.43-1200x1600.jpg 1200w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.31.43.jpg 1728w" sizes="(max-width: 576px) 100vw, 576px"></a><figcaption>A fairly No Frills box. But hardly important.</figcaption></figure>
-                    <p>On opening the box, I was presented with the motherboard, as you’d expect. This is a <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">model B board</a>, but there is a <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">B+ board</a> that has increased the specs a little further but the B will do me just fine. The Broadcom CPU runs at 1.2ghz (1200mhz), and has 4 cores. This is a fairly hefty boost from the 700mhz single core CPU present in the Raspberry Pi 1. Other improvements include 1GB RAM (my Pi 1 has 256MB), 2 more USB ports, wireless LAN, Bluetooth. It comes with a MicroSD card slot, rather than SD card, which makes minimal difference in standard operations, and some other little bits. NOOBS is provided on the SD Card, which makes getting up and running a breeze.</p>
-                    <figure class="wp-block-image is-resized"><a href="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-14.56.08.jpg"><img src="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-14.56.08-1024x793.jpg" alt="" class="wp-image-159" width="768" height="595" srcset="http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-14.56.08-1024x793.jpg 1024w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-14.56.08-300x232.jpg 300w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-14.56.08-768x595.jpg 768w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-14.56.08-1200x929.jpg 1200w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-14.56.08.jpg 1743w" sizes="(max-width: 768px) 100vw, 768px"></a><figcaption>The Broadcom CPU has 4 cores running at 1.2ghz. Quite the step up from the v1’s single core at 700mhz.</figcaption></figure>
-                    <p>After opening the case up I put the motherboard in which snaps very satisfyingly in to place, I must say. I made sure all the exposed ports lined up with the case correctly, then stuck on the heatsinks. I could then put the side and top panels on. As far as building a PC goes, this is a painless as it gets.</p>
-                    <figure class="wp-block-image is-resized"><a href="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.11.47.jpg"><img src="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.11.47-1024x768.jpg" alt="" class="wp-image-157" width="768" height="576" srcset="http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.11.47-1024x768.jpg 1024w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.11.47-300x225.jpg 300w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.11.47-768x576.jpg 768w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.11.47-1200x900.jpg 1200w" sizes="(max-width: 768px) 100vw, 768px"></a><figcaption>The case is far more of a snug fit than my Pi 1. Everything feels nice and solid.</figcaption></figure>
-                    <p>Once the device was all assembled, it was a simple of matter of inserting the SD card, hooking up the monitor/keyboard/ethernet cables, and hooking it up to the power. I was pretty quickly greeted by the <a href="https://www.simonpreston.dev/index.php/2019/02/23/setting-up-a-rasberry-pi-with-rasbian/">familiar NOOBS installer</a>. Just as with the Raspberry Pi 1 I went with a Rasbian Lite installation, for now. I was up and running, to a command prompt within minutes. It boots a hell of a lot quicker than the Pi 1. It certainly feels zippier in the terminal, too. From there I could set up my SSH and it was ready to rock.</p>
-                    <figure class="wp-block-image is-resized"><a href="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.14.32.jpg"><img src="https://www.simonpreston.dev/wp-content/uploads/2019/02/2019-02-25-15.14.32-1024x883.jpg" alt="" class="wp-image-160" width="768" height="662" srcset="http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.14.32-1024x883.jpg 1024w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.14.32-300x259.jpg 300w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.14.32-768x662.jpg 768w, http://www.simonpreston.in/wp-content/uploads/2019/02/2019-02-25-15.14.32-1200x1035.jpg 1200w" sizes="(max-width: 768px) 100vw, 768px"></a><figcaption>The finished article. Pretty nice looking.</figcaption></figure>
-                    <p>So there we are; a very painless setup for the Pi 3. It took less than half an hour, to get to the login prompt, from opening the box. Later on I do plan to see how it fairs with the full desktop experience, and if that is any improvement over the pain that is the Pi 1. I also will also look at using this model as a games emulator. Hopefully the built in bluetooth will make it a sinch to get an XBox One controller working, and turn it in to a very versatile gaming device.<br>As with the Pi 1, this is thoroughly impressive work, for a £35 price point. If you’ve never had a Pi before, now is the time.</p>
+                    {{ article.content | raw }}
                 </div>
-
-                <footer class="entry-footer">
-						<span class="cat-links">Posted in
-							<a href="http://www.simonpreston.in/category/raspberry-pi/" rel="category tag">Raspberry Pi</a>,
-							<a href="http://www.simonpreston.in/category/reviews/" rel="category tag">Reviews</a>
-						</span>
-                </footer>
             </article>
             <nav class="navigation post-navigation" role="navigation" aria-label="Posts">
                 <h2 class="screen-reader-text">Post navigation</h2>
-                <div class="nav-links"><div class="nav-previous"><a href="http://www.simonpreston.in/2019/03/01/using-the-raspberry-pi-as-a-dhcp-server/" rel="prev">Using the Raspberry Pi as a DHCP server.</a></div><div class="nav-next"><a href="http://www.simonpreston.in/2019/03/15/securing-your-website-with-ssl-part-1-paid-for-services/" rel="next">Securing Your Website With SSL Part 1: Paid For Services.</a></div></div>
+                <div class="nav-links">
+                    <div class="nav-previous">
+                        <a href="http://www.simonpreston.in/2019/03/01/using-the-raspberry-pi-as-a-dhcp-server/" rel="prev">Using the Raspberry Pi as a DHCP server.</a>
+                    </div>
+                    <div class="nav-next">
+                        <a href="http://www.simonpreston.in/2019/03/15/securing-your-website-with-ssl-part-1-paid-for-services/" rel="next">Securing Your Website With SSL Part 1: Paid For Services.</a>
+                    </div>
+                </div>
             </nav>
             <div id="comments" class="comments-area">
                 <div id="respond" class="comment-respond">
-                    <h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/03/08/so-i-bought-a-raspberry-pi-3/#respond" style="display:none;">Cancel reply</a></small></h3>
-                    <form action="http://www.simonpreston.in/wp/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate=""><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
-                        <p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
-                        <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
-                        <p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="69" id="comment_post_ID">
+                    <h3 id="reply-title" class="comment-reply-title">Leave a Reply
+                        <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/03/08/so-i-bought-a-raspberry-pi-3/#respond" style="display:none;">Cancel reply</a></small>
+                    </h3>
+                    <form action="{{ '/article/'~article.id~'/comment'}}" class="comment-form" novalidate="">
+                        <p class="comment-notes">
+                            <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
+                        </p>
+                        <p class="comment-form-comment">
+                            <label for="comment">Comment</label>
+                            <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+                        </p>
+                        <p class="comment-form-author">
+                            <label for="author">Name <span class="required">*</span></label>
+                            <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required">
+                        </p>
+                        <p class="comment-form-email">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required">
+                        </p>
+                        <p class="comment-form-url">
+                            <label for="url">Website</label>
+                            <input id="url" name="url" type="url" value="" size="30" maxlength="200">
+                        </p>
+                        <p class="form-submit">
+                            <input name="submit" type="submit" id="submit" class="submit" value="Post Comment">
+                            <input type="hidden" name="comment_post_ID" value="69" id="comment_post_ID">
                             <input type="hidden" name="comment_parent" id="comment_parent" value="0">
                         </p>
                     </form>
                 </div>
-            </div>	<footer class="entry-footer">
-		<span class="cat-links">Posted in
-			<a href="http://www.simonpreston.in/category/raspberry-pi/" rel="category tag">Raspberry Pi</a>,
-			<a href="http://www.simonpreston.in/category/reviews/" rel="category tag">Reviews</a>
-		</span>
-        </footer>
-            <!-- #post-69 -->
-        </main><!-- #main -->
-    </div><!-- #primary -->
+            </div>
+        </main>
+    </div>
 
     <aside id="secondary" class="widget-area">
         <section id="custom_html-2" class="widget_text widget widget_custom_html">
             <div class="textwidget custom-html-widget">
-                <img width="240" height="240" src="https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o.jpg" class="custom-logo" alt="simonpreston" itemprop="logo" srcset="https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o.jpg 240w, https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o-150x150.jpg 150w" sizes="(max-width: 240px) 85vw, 240px">
+                <img width="240"
+                     height="240"
+                     src="https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o.jpg"
+                     class="custom-logo"
+                     alt="simonpreston"
+                     srcset="https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o.jpg 240w, https://www.simonpreston.net/wp-content/uploads/2019/02/cropped-23467285_10159682144620217_8247908484029863451_o-150x150.jpg 150w"
+                     sizes="(max-width: 240px) 85vw, 240px"
+                >
 
-                <p style="padding: 10px;">
-                    I'm Simon, the owner of this blog and a software developer based in the UK. This site is for my own personal ramblings.
+                <p>
+                    Im Simon, the owner of this blog and a software developer based in the UK. This site is for my own personal ramblings.
                 </p>
             </div>
         </section>
-        <section id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://www.simonpreston.in/">
-            <label>
-                <span class="screen-reader-text">Search for:</span>
-                <input type="search" class="search-field" placeholder="Search …" value="" name="s">
-            </label>
-            <input type="submit" class="search-submit" value="Search">
-        </form></section>		<section id="recent-posts-2" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
-        <li>
-            <a href="http://www.simonpreston.in/2020/04/11/upcoming-site-changes/">Upcoming Site Changes</a>
-        </li>
-        <li>
-            <a href="http://www.simonpreston.in/2020/03/15/thoughts-on-imposter-syndrome/">Thoughts on Imposter Syndrome</a>
-        </li>
-        <li>
-            <a href="http://www.simonpreston.in/2020/01/19/was-windows-8-that-bad/">Was Windows 8 that bad?</a>
-        </li>
-        <li>
-            <a href="http://www.simonpreston.in/2019/12/06/theres-always-room-for-a-stupid/">There’s Always Room For A Stupid</a>
-        </li>
-        <li>
-            <a href="http://www.simonpreston.in/2019/10/13/ive-switched-to-linux-as-my-primary-os-at-last/">I’ve switched to Linux as my primary OS, at last.</a>
-        </li>
-    </ul>
-    </section><section id="recent-comments-2" class="widget widget_recent_comments"><h2 class="widget-title">Recent Comments</h2><ul id="recentcomments"></ul></section><section id="archives-2" class="widget widget_archive"><h2 class="widget-title">Archives</h2>		<ul>
-        <li><a href="http://www.simonpreston.in/2020/04/">April 2020</a></li>
-        <li><a href="http://www.simonpreston.in/2020/03/">March 2020</a></li>
-        <li><a href="http://www.simonpreston.in/2020/01/">January 2020</a></li>
-        <li><a href="http://www.simonpreston.in/2019/12/">December 2019</a></li>
-        <li><a href="http://www.simonpreston.in/2019/10/">October 2019</a></li>
-        <li><a href="http://www.simonpreston.in/2019/05/">May 2019</a></li>
-        <li><a href="http://www.simonpreston.in/2019/04/">April 2019</a></li>
-        <li><a href="http://www.simonpreston.in/2019/03/">March 2019</a></li>
-        <li><a href="http://www.simonpreston.in/2019/02/">February 2019</a></li>
-    </ul>
-    </section><section id="categories-2" class="widget widget_categories"><h2 class="widget-title">Categories</h2>		<ul>
-        <li class="cat-item cat-item-3"><a href="http://www.simonpreston.in/category/amiga/">Amiga</a>
-        </li>
-        <li class="cat-item cat-item-13"><a href="http://www.simonpreston.in/category/dumb/">Dumb</a>
-        </li>
-        <li class="cat-item cat-item-5"><a href="http://www.simonpreston.in/category/linux/">Linux</a>
-        </li>
-        <li class="cat-item cat-item-29"><a href="http://www.simonpreston.in/category/ramblings/">Ramblings</a>
-        </li>
-        <li class="cat-item cat-item-4"><a href="http://www.simonpreston.in/category/raspberry-pi/">Raspberry Pi</a>
-        </li>
-        <li class="cat-item cat-item-25"><a href="http://www.simonpreston.in/category/reviews/">Reviews</a>
-        </li>
-        <li class="cat-item cat-item-17"><a href="http://www.simonpreston.in/category/tutorials/">Tutorials</a>
-        </li>
-        <li class="cat-item cat-item-1"><a href="http://www.simonpreston.in/category/uncategorized/">Uncategorized</a>
-        </li>
-        <li class="cat-item cat-item-31"><a href="http://www.simonpreston.in/category/windows/">Windows</a>
-        </li>
-    </ul>
-    </section><section id="meta-2" class="widget widget_meta"><h2 class="widget-title">Meta</h2>			<ul>
-        <li><a href="http://www.simonpreston.in/wp/wp-login.php">Log in</a></li>
-        <li><a href="http://www.simonpreston.in/feed/">Entries feed</a></li>
-        <li><a href="http://www.simonpreston.in/comments/feed/">Comments feed</a></li>
-        <li><a href="https://wordpress.org/">WordPress.org</a></li>			</ul>
-    </section></aside><!-- #secondary -->
-
+    </aside>
 </div>
